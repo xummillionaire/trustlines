@@ -837,10 +837,7 @@ function getNewTokens() {
                             + 'LINK: ' + url.link(url) + '<br>';
       }
   }
-  {{/* if(allLink != '') {
-    var audio = new Audio('/Users/quangkhiem/Downloads/8KR4YVH-notification-2.mp3');
-    audio.play();
-  } */}}
+ 
   document.getElementById("newTokens").innerHTML = allLink;
   console.log('END');
 }
