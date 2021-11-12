@@ -75,9 +75,3 @@ function getNewTokens() {
 getNewTokens();
 setInterval(getNewTokens, 45000);
 </script>
-
-
-
-
-
-
