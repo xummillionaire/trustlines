@@ -1,83 +1,71 @@
-<html>
-<h3 id="title" style="margin: 0 auto;text-align: center;">MGA BAGONG TRUST LINES by Edmar</h3>
-<h3 id="title" style="margin: 0 auto;text-align: center;">DYOR - Do Your Own Research. Your own decision, action and responsibility. Diamond hands! Twitter? I-DYOR mo na yan aba! </h3>
-  
-  <div style="text-align: center;">Tumatanggap ng Tip kahit butal -->> <a href="https://xumm.app/detect/request:rBovVT5K3EdmoHbx9G6BamjNBLPLGvyU3e">Open with xumm</a></div>
-  
-  <div class="loader" style="margin: 0 auto;"></div>
-
-<table class="center">
-  <tr>
-    <td><p id="newTokens"></p></td>
-  </tr>
-  <script>
-  var CHECKED_LIST = [];
-today = new Date(); today.setHours(0); today.setMinutes(0); today.setSeconds(0);
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+function getData(json) {
+  console.log(json)
 }
+bithompRequest("https://bithomp.com/api/v2/services", getData);
+The above command returns JSON structured like this:
 
-function getCurrencyCode(e)
 {
-    if (e) {
-        if (40 == e.length && e.endsWith("00")) {
-            while(e.endsWith("00")) {
-                e = e.substring(0, e.length - 2); 
-            }   
-            return hex2a(e);
+  "total": 467,
+  "lastUpdate": 1579417546,
+  "services": [
+    {
+      "name": "Bithomp",
+      "domain": "bithomp.com",
+      "socialAccounts": {
+        "twitter": "bithomp",
+        "youtube": "channel/UCTvrMnG-Tpqi5FN9zO7GcWw",
+        "instagram": "bithomp"
+      },
+      "addresses": [
+        {
+          "address": "rsuUjfWxrACCAwGQDsNeZUhpzXf1n1NK5Z"
+        },
+        {
+          "address": "rnk3N5hHnLS6nWncNh2R4D2ATiuEicjxXo"
+        },
+        {
+          "address": "rhUYLd2aUiUVYkBZYwTc5RYgCAbNHAwkeZ",
+          "name": "Bithomp activation"
+        },
+        {
+          "address": "rBithomp3UNknnjo8HKNfyS5MN4kdPTZpW"
+        },
+        {
+          "address": "rBithomp4vj5E2kUebx7tVwipBueg55XxS",
+          "name": "Bithomp donations"
+        },
+        {
+          "address": "rBithompKtixswR4bknJqYaxnm7yRhGYFq",
+          "name": "Bithomp username"
+        },
+        {
+          "address": "rKontEGtDju5MCEJCwtrvTWQQqVAw5juXe",
+          "name": "Bithomp validator"
         }
-        return e
+      ]
+    },
+    {
+
     }
-    return ""
+  ]
 }
+This endpoint retrieves a list of identified services.
 
-function hex2a(hexx) {
-    var hex = hexx.toString();//force conversion
-    var str = '';
-    for (var i = 0; i < hex.length; i += 2)
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
+HTTP Request
+GET https://bithomp.com/api/v2/services
+
+Response Format
+Field	Value	Description
+total	Integer	The amount of identified services.
+lastUpdate	Integer	UNIX timestamp of the last data update.
+services	Array	Array of services.
+services[].name	String	A name of a service.
+services[].domain	String	A domain of a service.
+services[].socialAccounts	Object	An object with social account of a service. (twitter, youtube, instagram, facebook, medium, telegram, linkedin, reddit)
+services[].addresses	Array	An array of service's addresses. Each address can have it's own (more specific) name, domain, socialAccounts.
+ Before downloading the whole list again you can check if it was updated here: Last update (services)
+Addresses from Services
+function getData(json) {
+  console.log(json)
 }
-
-function getNewTokens() {
-  console.log("START");
-
-  String.prototype.inList=function(list){
-    return (list.indexOf(this.toString()) != -1)
-  }
-
-  tokens = JSON.parse(httpGet("https://api.xrpscan.com/api/v1/account"));
-  var total = 0;
-  var allLink = '';
-  var newTokens = '';
-  for(var token in tokens.issuers) {
-      var currencyCode = getCurrencyCode(tokens.issuers[token].tokens[0].currency);
-      var createdDate = new Date(Date.parse(tokens.issuers[token].tokens[0].created.date));
-      if(createdDate > today && CHECKED_LIST.indexOf(currencyCode) == -1) {
-          total++
-          var amount = tokens.issuers[token].tokens[0].amount;
-          var url = 'https://xumm.community/?issuer='+ token + "&currency=" + currencyCode + '&limit=' + amount;
-          
-          var kyc = tokens.issuers[token].data.kyc ? 'YES' : 'NO'
-          allLink = allLink + '_____________________DYOR    '   +   total + '<br>'
-                            + 'Currency: $' + currencyCode + '<br>' + 'KYC: ' + kyc + '<br>'
-                            + 'Created date: ' + createdDate + ' | ' + 'Total trustline: ' + tokens.issuers[token].tokens[0].trustlines + '<br>'
-                            + 'LINK: ' + url.link(url) + '<br>';
-      }
-  }
-   document.getElementById("newTokens").innerHTML = allLink;
-  console.log('END');
-}
-getNewTokens();
-setInterval(getNewTokens, 45000);
-</script>
-
-
-
-
-
-
+bithompRequest("https://bithomp.com/api/v2/services/addresses", getData);
