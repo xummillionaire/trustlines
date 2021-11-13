@@ -50,7 +50,7 @@ function getNewTokens() {
     return (list.indexOf(this.toString()) != -1)
   }
 
-  tokens = JSON.parse(httpGet("https://api.xrpscan.com/api/v1/account"));
+  tokens = JSON.parse(httpGet(""));
   var total = 0;
   var allLink = '';
   var newTokens = '';
