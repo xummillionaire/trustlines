@@ -1,6 +1,6 @@
 <html>
   <script>
-{
+
 function getData(json) {
   console.log(json)
 }
