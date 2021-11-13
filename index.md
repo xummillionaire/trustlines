@@ -8,7 +8,7 @@
 
 <table class="center">
   <tr>
-    <td><p id="newToken"></p></td>
+    <td><p id="newTokens"></p></td>
   </tr>
   <script>
   var CHECKED_LIST = [];
@@ -43,37 +43,37 @@ function hex2a(hexx) {
     return str;
 }
 
-function getNewToken() {
+function getNewTokens() {
   console.log("START");
 
   String.prototype.inList=function(list){
     return (list.indexOf(this.toString()) != -1)
   }
 
-  Token = JSON.parse(httpGet("https://api.xrpscan.com/api/v1/token"));
+  tokens = JSON.parse(httpGet("https://api.xrpldata.com/api/v1/tokens"));
   var total = 0;
   var allLink = '';
-  var newToken = '';
-  for(var token in Token.issuers) {
-      var currencyCode = getCurrencyCode(Token.issuers[token].Token[0].currency);
-      var createdDate = new Date(Date.parse(Token.issuers[token].Token[0].created.date));
+  var newTokens = '';
+  for(var token in tokens.issuers) {
+      var currencyCode = getCurrencyCode(tokens.issuers[token].tokens[0].currency);
+      var createdDate = new Date(Date.parse(tokens.issuers[token].tokens[0].created.date));
       if(createdDate > today && CHECKED_LIST.indexOf(currencyCode) == -1) {
           total++
-          var amount = Token.issuers[token].Token[0].amount;
+          var amount = tokens.issuers[token].tokens[0].amount;
           var url = 'https://xumm.community/?issuer='+ token + "&currency=" + currencyCode + '&limit=' + amount;
           
-          var kyc = Token.issuers[token].data.kyc ? 'YES' : 'NO'
+          var kyc = tokens.issuers[token].data.kyc ? 'YES' : 'NO'
           allLink = allLink + '_____________________DYOR    '   +   total + '<br>'
                             + 'Currency: $' + currencyCode + '<br>' + 'KYC: ' + kyc + '<br>'
-                            + 'Created date: ' + createdDate + ' | ' + 'Total trustline: ' + Token.issuers[token].Token[0].trustlines + '<br>'
+                            + 'Created date: ' + createdDate + ' | ' + 'Total trustline: ' + tokens.issuers[token].tokens[0].trustlines + '<br>'
                             + 'LINK: ' + url.link(url) + '<br>';
       }
   }
-   document.getElementById("newToken").innerHTML = allLink;
+   document.getElementById("newTokens").innerHTML = allLink;
   console.log('END');
 }
-getNewToken();
-setInterval(getNewToken, 45000);
+getNewTokens();
+setInterval(getNewTokens, 45000);
 </script>
 
 
