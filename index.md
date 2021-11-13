@@ -1,6 +1,3 @@
-
-
-<!DOCTYPE html>
 <html>
 <body style="background-color: aliceblue;">
 <head>
@@ -836,11 +833,7 @@ function getNewTokens() {
                             + 'Created date: ' + createdDate + ' | ' + 'Total trustline: ' + tokens.issuers[token].tokens[0].trustlines + '<br>'
                             + 'LINK: ' + url.link(url) + '<br>';
       }
-  }
-  {{/* if(allLink != '') {
-    var audio = new Audio('/Users/quangkhiem/Downloads/8KR4YVH-notification-2.mp3');
-    audio.play();
-  } */}}
+ 
   document.getElementById("newTokens").innerHTML = allLink;
   console.log('END');
 }
