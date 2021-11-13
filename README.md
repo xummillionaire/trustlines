@@ -1,6 +1,3 @@
-
-
-<!DOCTYPE html>
 <html>
 <body style="background-color: aliceblue;">
 <head>
