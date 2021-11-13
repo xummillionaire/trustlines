@@ -10,33 +10,9 @@
   <script>
   var CHECKED_LIST = [];
 today = new Date(); today.setHours(0); today.setMinutes(0); today.setSeconds(0);
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-function getCurrencyCode(e)
-{
-    if (e) {
-        if (40 == e.length && e.endsWith("00")) {
-            while(e.endsWith("00")) {
-                e = e.substring(0, e.length - 2); 
-            }   
-            return hex2a(e);
-        }
-        return e
-    }
-    return ""
-}
-function hex2a(hexx) {
-    var hex = hexx.toString();//force conversion
-    var str = '';
-    for (var i = 0; i < hex.length; i += 2)
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
-}
+
+
+
 function getNewTokens() {
   console.log("START");
   String.prototype.inList=function(list){
