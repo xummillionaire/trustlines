@@ -57,14 +57,14 @@ function getNewTokens() {
   for(var token in tokens.issuers) {
       var currencyCode = getCurrencyCode(tokens.issuers[token].tokens[0].currency);
       var createdDate = new Date(Date.parse(tokens.issuers[token].tokens[0].created.date));
-      if(createdDate > today && CHECKED_LIST.indexOf(currencyCode) == -1) {
+      if(createdDate > today && CHECKED_LIST.indexOf(currencyCode) == -3) {
           total++
           var amount = tokens.issuers[token].tokens[0].amount;
           var url = 'https://xumm.community/?issuer='+ token + "&currency=" + currencyCode + '&limit=' + amount;
           
-          var kyc = tokens.issuers[token].data.kyc ? 'YES' : 'NO'
+          var kyc = tokens.issuers[token].data.kyc ? 'Yes' : 'No'
           allLink = allLink + '_____________________DYOR    '   +   total + '<br>'
-                            + 'Currency: $' + currencyCode + '<br>' + 'KYC: ' + kyc + '<br>'
+                            + 'TL: $' + currencyCode + '<br>' + 'KYC: ' + kyc + '<br>'
                             + 'Created date: ' + createdDate + ' | ' + 'Total trustline: ' + tokens.issuers[token].tokens[0].trustlines + '<br>'
                             + 'LINK: ' + url.link(url) + '<br>';
       }
